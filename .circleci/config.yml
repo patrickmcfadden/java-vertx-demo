@@ -41,7 +41,7 @@ jobs:
       # run tests!
       - run: gradle test
 
-      - setup_remote_docker:
+      - setup_remote_docker
 
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
