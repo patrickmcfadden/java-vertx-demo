@@ -56,3 +56,9 @@ jobs:
     steps:
       - checkout
       - run: kubectl apply -f deployments/deploy-app.yaml
+        workflows:
+  version: 2
+workflow:
+  jobs:
+    - build
+    - deploy
