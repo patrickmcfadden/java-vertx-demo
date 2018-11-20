@@ -50,3 +50,9 @@ jobs:
           docker login quay.io -u $QUAY_USER -p $QUAY_PASSWORD
           docker push quay.io/pmcfadden/java-vertx-demo:$TAG
 
+  deploy:
+    docker:
+      - image: quay.io/pmcfadden/circleci-kubectl
+    steps:
+      - checkout
+      - run: kubectl apply -f deployments/deploy-app.yaml
