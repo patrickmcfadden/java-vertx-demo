@@ -52,7 +52,7 @@ jobs:
 
   deploy:
     docker:
-      - image: quay.io/pmcfadden/circleci-kubectl:0.1.4
+      - image: quay.io/pmcfadden/circleci-kubectl:0.1.5
     environment:
       KOPS_STATE_STORE: s3://pmcfadden-kops-state-store
     steps:
