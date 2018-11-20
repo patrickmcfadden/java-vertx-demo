@@ -59,7 +59,7 @@ jobs:
       - checkout
       - run: |
           kops export kubecfg kops.patrickmcfadden.io
-          kubectl apply -f deployments/deploy-app.yaml
+          kubectl apply -f deployment/deploy-app.yaml
 workflows:
   version: 2
   build_and_deploy:
