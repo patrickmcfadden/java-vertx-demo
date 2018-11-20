@@ -52,7 +52,7 @@ jobs:
 
   deploy:
     docker:
-      - image: quay.io/pmcfadden/circleci-kubectl
+      - image: quay.io/pmcfadden/circleci-kubectl:0.1.4
     steps:
       - checkout
       - run: kubectl apply -f deployments/deploy-app.yaml
@@ -61,4 +61,6 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build
