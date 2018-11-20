@@ -53,9 +53,13 @@ jobs:
   deploy:
     docker:
       - image: quay.io/pmcfadden/circleci-kubectl:0.1.4
+    environment:
+      KOPS_STATE_STORE: s3://pmcfadden-kops-state-store
     steps:
       - checkout
-      - run: kubectl apply -f deployments/deploy-app.yaml
+      - run: |
+          kops export kubecfg kops.patrickmcfadden.io
+          kubectl apply -f deployments/deploy-app.yaml
 workflows:
   version: 2
   build_and_deploy:
