@@ -2,69 +2,19 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+version: 2.1
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+orbs:
+  docker-agents: patrickmcfadden/docker-agent@dev:first
 
-    working_directory: ~/repo
-
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
-
-    steps:
-
-      - checkout
-
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: ./gradlew dependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-      # run tests!
-      - run: ./gradlew test
-
-      - setup_remote_docker
-
-      - run: |
-          TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t quay.io/pmcfadden/java-vertx-demo:$TAG .
-          docker login quay.io -u $QUAY_USER -p $QUAY_PASSWORD
-          docker push quay.io/pmcfadden/java-vertx-demo:$TAG
-
-  deploy:
-    docker:
-      - image: quay.io/pmcfadden/circleci-kubectl:0.1.5
-    environment:
-      KOPS_STATE_STORE: s3://pmcfadden-kops-state-store
-    steps:
-      - checkout
-      - run: |
-          kops export kubecfg kops.patrickmcfadden.io
-          kubectl apply -f deployment/deploy-app.yaml
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - docker-agents/publish:
+          image: pmcfadden/java-vertx-demo
+          filters:
+            branches:
+              only: master
+            tags:
+              ignore: /.*/
