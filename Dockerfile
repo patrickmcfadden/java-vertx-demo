@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 USER root
-RUN gradle build
+RUN ./gradlew build
 
 FROM java:openjdk-8-jre-alpine
 COPY --from=compiler /app/build/libs/starter-1.0.0-SNAPSHOT-fat.jar .
