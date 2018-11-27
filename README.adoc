@@ -1,7 +1,7 @@
 = Starter
 
 image:https://img.shields.io/badge/vert.x-3.5.3-purple.svg[link="https://vertx.io"]
-image:https://circleci.com/gh/pmcfadden/java-vertx-demo.svg?style=svg["CircleCI", link="https://circleci.com/gh/patrickmcfadden/java-vertx-demo"]
+image:https://circleci.com/gh/patrickmcfadden/java-vertx-demo.svg?style=svg["CircleCI", link="https://circleci.com/gh/patrickmcfadden/java-vertx-demo"]
 image:https://quay.io/repository/pmcfadden/java-vertx-demo/status["Docker Repository on Quay", link="https://quay.io/repository/pmcfadden/java-vertx-demo"]
 
 This application was generated using http://start.vertx.io
