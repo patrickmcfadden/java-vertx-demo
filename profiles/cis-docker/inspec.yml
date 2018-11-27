@@ -1,0 +1,7 @@
+name: cis-docker
+title: CIS Docker Community Edition_Benchmark v1.1.0
+summary: 4 Container Images and Build File
+version: 1.0.0
+maintainer: ncheneweth
+copyright: ncheneweth
+license: Apache-2.0
